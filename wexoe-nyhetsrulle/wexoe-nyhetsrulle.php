@@ -56,10 +56,10 @@ class WexoeNewsTicker {
             'excerpt_length' => 20
         ), $atts);
         
-        // Bygg query arguments - hämta 4 nyheter
+        // Bygg query arguments - hämta 5 nyheter (en featured + fyra standard)
         $args = array(
             'post_type' => $atts['post_type'],
-            'posts_per_page' => 4,
+            'posts_per_page' => 5,
             'orderby' => 'date',
             'order' => 'DESC',
             'post_status' => 'publish'
@@ -89,42 +89,64 @@ class WexoeNewsTicker {
         <div class="wexoe-news-ticker-compact">
             <div class="wexoe-news-container">
                 <?php if ($news_query->have_posts()) : ?>
-                    <div class="wexoe-news-list">
-                        <?php 
-                        $post_count = 0;
-                        while ($news_query->have_posts()) : 
-                            $news_query->the_post(); 
-                            $post_count++;
-                            $is_featured = ($post_count === 1);
-                            $categories = get_the_category();
-                            $category_name = !empty($categories) ? $categories[0]->name : '';
+                    <?php
+                        $featured_output = '';
+                        $regular_output = '';
+                        $post_index = 0;
+
+                        while ($news_query->have_posts()) :
+                            $news_query->the_post();
                             $is_external = get_post_meta(get_the_ID(), 'external_link', true);
                             $link = !empty($is_external) ? $is_external : get_permalink();
-                        ?>
-                            <article class="wexoe-news-item <?php echo $is_featured ? 'featured' : ''; ?>" 
+
+                            ob_start();
+                            ?>
+                            <article class="wexoe-news-item <?php echo $post_index === 0 ? 'featured' : ''; ?>"
                                      data-news-id="<?php echo get_the_ID(); ?>">
-                                
+
                                 <div class="wexoe-news-date">
                                     <span class="day"><?php echo get_the_date('d'); ?></span>
                                     <span class="month"><?php echo get_the_date('M'); ?></span>
                                 </div>
-                                
+
                                 <div class="wexoe-news-content">
                                     <h4 class="wexoe-news-title">
-                                        <a href="<?php echo esc_url($link); ?>" 
+                                        <a href="<?php echo esc_url($link); ?>"
                                            <?php echo !empty($is_external) ? 'target="_blank" rel="noopener"' : ''; ?>>
                                             <?php the_title(); ?>
                                         </a>
                                     </h4>
-                                    <?php if ($is_featured && $atts['show_excerpt'] === 'true') : ?>
+                                    <?php if ($post_index === 0 && $atts['show_excerpt'] === 'true') : ?>
                                         <p class="wexoe-news-excerpt">
                                             <?php echo wp_trim_words(get_the_excerpt(), intval($atts['excerpt_length'])); ?>
                                         </p>
                                     <?php endif; ?>
                                 </div>
                             </article>
-                        <?php endwhile; ?>
-                    </div>
+                            <?php
+                            $item_html = ob_get_clean();
+
+                            if ($post_index === 0) {
+                                $featured_output = $item_html;
+                            } else {
+                                $regular_output .= $item_html;
+                            }
+
+                            $post_index++;
+                        endwhile;
+                    ?>
+
+                    <?php if (!empty($featured_output)) : ?>
+                        <div class="wexoe-news-featured">
+                            <?php echo $featured_output; ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($regular_output)) : ?>
+                        <div class="wexoe-news-list">
+                            <?php echo $regular_output; ?>
+                        </div>
+                    <?php endif; ?>
                 <?php else : ?>
                     <div class="wexoe-news-empty">
                         <p>Inga nyheter att visa just nu.</p>
