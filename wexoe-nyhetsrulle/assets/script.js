@@ -30,14 +30,7 @@
                 $(this).removeClass('is-hovering');
             });
             
-            // Förstärk hover-effekt för featured item
-            this.$items.filter('.featured').on('mouseenter', function() {
-                $(this).find('.wexoe-news-excerpt').css('color', 'rgba(255, 255, 255, 0.95)');
-            });
-            
-            this.$items.filter('.featured').on('mouseleave', function() {
-                $(this).find('.wexoe-news-excerpt').css('color', 'rgba(255, 255, 255, 0.8)');
-            });
+            // Featured-stil hanteras via CSS med klassen is-hovering
         }
         
         setupAccessibility() {

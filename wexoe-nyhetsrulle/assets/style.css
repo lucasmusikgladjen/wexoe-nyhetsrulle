@@ -6,69 +6,65 @@
 .wexoe-news-ticker-compact {
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     border-radius: 12px;
-    padding: 12px;
+    padding: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    position: relative;
-    overflow: hidden;
-    max-width: 400px;
+    max-width: 420px;
     margin: 0 auto;
-}
-
-/* Översta linjen */
-.wexoe-news-ticker-compact::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #11325D 0%, #1a4175 100%);
 }
 
 /* Container */
 .wexoe-news-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.wexoe-news-featured {
     position: relative;
 }
 
-/* News List */
 .wexoe-news-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 /* News Item - Standard */
 .wexoe-news-item {
     display: flex;
-    align-items: center;
-    padding: 6px 8px;
-    background: white;
-    border-radius: 6px;
+    align-items: flex-start;
+    padding: 8px 10px;
+    background: #ffffff;
+    border-radius: 10px;
     border: 1px solid #e9ecef;
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
-    min-height: 40px;
+    min-height: 48px;
+    box-shadow: 0 1px 3px rgba(17, 50, 93, 0.06);
 }
 
-.wexoe-news-item:hover {
+.wexoe-news-item:hover,
+.wexoe-news-item.is-hovering {
     transform: translateX(3px);
-    box-shadow: 0 2px 8px rgba(17, 50, 93, 0.12);
+    box-shadow: 0 4px 12px rgba(17, 50, 93, 0.12);
     border-color: #11325D;
 }
 
 /* Featured nyhet - Första nyheten */
-.wexoe-news-item.featured {
-    padding: 12px 10px;
+.wexoe-news-featured .wexoe-news-item {
+    padding: 14px 16px;
     min-height: auto;
-    background: linear-gradient(135deg, #11325D 0%, #1a4175 100%);
-    border: none;
-    margin-bottom: 4px;
+    border-width: 2px;
+    border-color: #11325D;
+    background: linear-gradient(135deg, rgba(17, 50, 93, 0.08) 0%, rgba(17, 50, 93, 0.02) 100%);
+    box-shadow: 0 6px 20px rgba(17, 50, 93, 0.18);
 }
 
-.wexoe-news-item.featured:hover {
-    transform: translateX(2px) scale(1.01);
-    box-shadow: 0 4px 12px rgba(17, 50, 93, 0.25);
+.wexoe-news-featured .wexoe-news-item:hover,
+.wexoe-news-featured .wexoe-news-item.is-hovering {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(17, 50, 93, 0.25);
 }
 
 /* Date Block - Standard */
@@ -76,45 +72,47 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 28px;
-    max-width: 28px;
-    padding: 3px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    margin-right: 10px;
+    min-width: 32px;
+    max-width: 32px;
+    padding: 4px 5px;
+    background: #f1f3f5;
+    border-radius: 8px;
+    margin-right: 14px;
+    border: 1px solid rgba(17, 50, 93, 0.18);
 }
 
 .wexoe-news-date .day {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     color: #11325D;
     line-height: 1;
 }
 
 .wexoe-news-date .month {
-    font-size: 8px;
+    font-size: 9px;
     text-transform: uppercase;
     color: #6c757d;
-    margin-top: 1px;
+    margin-top: 2px;
     letter-spacing: 0.5px;
 }
 
 /* Featured date block */
-.wexoe-news-item.featured .wexoe-news-date {
-    min-width: 40px;
-    max-width: 40px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+.wexoe-news-featured .wexoe-news-date {
+    min-width: 44px;
+    max-width: 44px;
+    padding: 6px 8px;
+    background: #11325D;
+    border: none;
 }
 
-.wexoe-news-item.featured .wexoe-news-date .day {
-    font-size: 16px;
+.wexoe-news-featured .wexoe-news-date .day {
+    font-size: 18px;
     color: #ffffff;
 }
 
-.wexoe-news-item.featured .wexoe-news-date .month {
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.9);
+.wexoe-news-featured .wexoe-news-date .month {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.82);
 }
 
 /* Content */
@@ -126,13 +124,13 @@
 /* Title - Standard */
 .wexoe-news-title {
     margin: 0;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.3;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .wexoe-news-title a {
-    color: #2c3e50;
+    color: #1f2d3d;
     text-decoration: none;
     transition: color 0.2s ease;
     display: block;
@@ -148,31 +146,30 @@
 }
 
 /* Featured title */
-.wexoe-news-item.featured .wexoe-news-title {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
+.wexoe-news-featured .wexoe-news-title {
+    font-size: 16px;
+    margin-bottom: 6px;
 }
 
-.wexoe-news-item.featured .wexoe-news-title a {
-    color: #ffffff;
+.wexoe-news-featured .wexoe-news-title a {
+    color: #0d2240;
     -webkit-line-clamp: 3;
 }
 
-.wexoe-news-item.featured .wexoe-news-title a:hover {
-    color: rgba(255, 255, 255, 0.9);
+.wexoe-news-featured .wexoe-news-title a:hover {
+    color: #11325D;
 }
 
 /* Excerpt - endast för featured */
 .wexoe-news-excerpt {
     margin: 0;
-    font-size: 11px;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    line-height: 1.5;
+    color: #1f2d3d;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
 
@@ -190,19 +187,23 @@
     opacity: 0;
 }
 
-.wexoe-news-item:nth-child(1) {
+.wexoe-news-featured .wexoe-news-item {
     animation-delay: 0.05s;
 }
 
-.wexoe-news-item:nth-child(2) {
-    animation-delay: 0.1s;
+.wexoe-news-list .wexoe-news-item:nth-child(1) {
+    animation-delay: 0.08s;
 }
 
-.wexoe-news-item:nth-child(3) {
-    animation-delay: 0.15s;
+.wexoe-news-list .wexoe-news-item:nth-child(2) {
+    animation-delay: 0.12s;
 }
 
-.wexoe-news-item:nth-child(4) {
+.wexoe-news-list .wexoe-news-item:nth-child(3) {
+    animation-delay: 0.16s;
+}
+
+.wexoe-news-list .wexoe-news-item:nth-child(4) {
     animation-delay: 0.2s;
 }
 
@@ -221,65 +222,80 @@
 @media (prefers-color-scheme: dark) {
     .wexoe-news-ticker-compact {
         background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
     }
-    
+
     .wexoe-news-item {
-        background: #2d3748;
-        border-color: #4a5568;
+        background: #1f2937;
+        border-color: #364152;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     }
-    
-    .wexoe-news-item.featured {
-        background: linear-gradient(135deg, #11325D 0%, #1a4175 100%);
+
+    .wexoe-news-item:hover,
+    .wexoe-news-item.is-hovering {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     }
-    
+
+    .wexoe-news-featured .wexoe-news-item {
+        background: linear-gradient(135deg, rgba(17, 50, 93, 0.4) 0%, rgba(17, 50, 93, 0.2) 100%);
+        border-color: #90cdf4;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+
     .wexoe-news-date {
-        background: #1a1f2e;
+        background: #111827;
+        border-color: rgba(144, 205, 244, 0.2);
     }
-    
+
     .wexoe-news-date .day {
-        color: #f7fafc;
+        color: #e2e8f0;
     }
-    
+
     .wexoe-news-title a {
-        color: #f7fafc;
+        color: #e2e8f0;
+    }
+
+    .wexoe-news-excerpt {
+        color: #cbd5f5;
     }
 }
 
 /* Responsive Design */
 @media (max-width: 480px) {
     .wexoe-news-ticker-compact {
-        padding: 10px;
-        border-radius: 8px;
+        padding: 14px;
+        border-radius: 10px;
     }
-    
+
     .wexoe-news-item {
-        padding: 5px 6px;
-        min-height: 36px;
+        padding: 7px 8px;
+        min-height: 42px;
     }
-    
-    .wexoe-news-item.featured {
-        padding: 10px 8px;
+
+    .wexoe-news-featured .wexoe-news-item {
+        padding: 12px;
     }
-    
+
     .wexoe-news-date {
-        min-width: 26px;
-        max-width: 26px;
+        min-width: 28px;
+        max-width: 28px;
+        margin-right: 10px;
     }
-    
-    .wexoe-news-item.featured .wexoe-news-date {
-        min-width: 36px;
-        max-width: 36px;
+
+    .wexoe-news-featured .wexoe-news-date {
+        min-width: 38px;
+        max-width: 38px;
     }
-    
+
     .wexoe-news-title {
-        font-size: 11px;
+        font-size: 12px;
     }
-    
-    .wexoe-news-item.featured .wexoe-news-title {
-        font-size: 13px;
+
+    .wexoe-news-featured .wexoe-news-title {
+        font-size: 14px;
     }
-    
+
     .wexoe-news-excerpt {
-        font-size: 10px;
+        font-size: 11px;
     }
 }
